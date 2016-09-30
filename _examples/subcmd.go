@@ -7,18 +7,6 @@ import (
 )
 
 func main() {
-	// cliset.LowRegSubcmd("point", "p")
-	// cliset.LowRegSubcmd("test", "p")
-	// p := flag.Bool("p", false, "hoge")
-	// g := flag.Int("n", 0, "hoge")
-	// flag.Parse()
-	// b, _ := cliset.LowSubcmd("init")
-	// fmt.Println(*g)
-	// fmt.Println(*p)
-	// if b {
-	// 	fmt.Println("init?")
-	// }
-	//
 	cliset.RegSubcmd("fizz", "f")
 	cliset.RegSubcmd("Buzz", "b")
 	cliset.RegSubcmd("b", "b")

@@ -62,11 +62,6 @@ func GetMsg() *InMessage {
 	return msg
 }
 
-// Subcmd returns 2 values, first type is bool and second one is int.
-// First return value will be true when given subcommand name in argument is setted.
-// Second value returns the number of nth element of `os.Args` which is value of builtin package `os`
-// If there is no matched subcommand, second value will be 0.
-// So first you need to check first bool value.
 // func Subcmd(flagName string) (bool, int) {
 // 	args := []string{}
 // 	if len(os.Args) > 1 {
@@ -120,6 +115,11 @@ func RegSubcmd(subcmd, flagName string) {
 
 // Low
 
+// Subcmd returns 2 values, first type is bool and second one is int.
+// First return value will be true when given subcommand name in argument is setted.
+// Second value returns the number of nth element of `os.Args` which is value of builtin package `os`
+// If there is no matched subcommand, second value will be 0.
+// So first you need to check first bool value.
 func LowSubcmd(subcmd string) (bool, int) {
 	args := []string{}
 	if len(os.Args) > 1 {
