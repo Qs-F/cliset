@@ -62,29 +62,82 @@ func GetMsg() *InMessage {
 	return msg
 }
 
-func Subcmd(flagName string) (bool, int) {
+// Subcmd returns 2 values, first type is bool and second one is int.
+// First return value will be true when given subcommand name in argument is setted.
+// Second value returns the number of nth element of `os.Args` which is value of builtin package `os`
+// If there is no matched subcommand, second value will be 0.
+// So first you need to check first bool value.
+// func Subcmd(flagName string) (bool, int) {
+// 	args := []string{}
+// 	if len(os.Args) > 1 {
+// 		args = os.Args
+// 	} else {
+// 		return false, 0
+// 	}
+// 	var wg sync.WaitGroup
+// 	pos := make(chan int, len(args))
+// 	wg.Add(len(args))
+// 	for i, v := range args {
+// 		go func(n int, s string) {
+// 			defer wg.Done()
+// 			if s == flagName {
+// 				pos <- n
+// 			}
+// 		}(i, v)
+// 	}
+// 	wg.Wait()
+// 	select {
+// 	case n := <-pos:
+// 		fmt.Printf("%v", <-pos)
+// 		return true, n
+// 	default:
+// 		return false, 0
+// 	}
+// }
+//
+
+// RegSubcmd register your subcommand as alias of builtin flag package's flag.
+// Before run `flag.Parse()`, RegSubcmd must be put.
+// To use, 2 arguments needed.
+// Set subcommand name in first argumanet.
+// Set flag package's flag name last argument.
+func RegSubcmd(subcmd, flagName string) {
+	if !(len(os.Args) > 1) {
+		return
+	}
+	var wg sync.WaitGroup
+	wg.Add(len(os.Args))
+	for i, v := range os.Args {
+		go func(n int, s string) {
+			if s == subcmd {
+				os.Args[n] = "-" + flagName
+			}
+			wg.Done()
+		}(i, v)
+	}
+	wg.Wait()
+}
+
+// Low
+
+func LowSubcmd(subcmd string) (bool, int) {
 	args := []string{}
 	if len(os.Args) > 1 {
 		args = os.Args
 	} else {
 		return false, 0
 	}
-	var wg sync.WaitGroup
-	pos := make(chan int, 1)
-	wg.Add(len(args))
 	for i, v := range args {
-		go func(n int, s string) {
-			defer wg.Done()
-			if s == flagName {
-				pos <- n
-			}
-		}(i, v)
+		if v == subcmd {
+			return true, i
+		}
 	}
-	wg.Wait()
-	select {
-	case n := <-pos:
-		return true, n
-	default:
-		return false, 0
+	return false, 0
+}
+
+func LowRegSubcmd(subcmd, flagName string) {
+	b, n := LowSubcmd(subcmd)
+	if b {
+		os.Args[n] = "-" + flagName
 	}
 }
