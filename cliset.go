@@ -6,7 +6,6 @@ package cliset
 import (
 	"errors"
 	"io/ioutil"
-	"log"
 	"os"
 	"sync"
 

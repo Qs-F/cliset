@@ -1,7 +1,7 @@
 package cliset
 
 import (
-	// "fmt"
+	"flag"
 	"os"
 	"testing"
 )
@@ -27,9 +27,11 @@ func TestGetMsg(t *testing.T) {
 	t.Log(s)
 }
 
-func TestSubcmd(t *testing.T) {
+func TestRegSubcmd(t *testing.T) {
 	cmd := []string{"A", "B", "c", "d", "e", "f", "g", "h", "i", "j", "k", "test"}
 	os.Args = append(os.Args, cmd...)
-	b, n := Subcmd("test")
-	t.Log(b, n)
+	RegSubcmd("test", "t")
+	f := flag.Bool("t", false, "test flag")
+	flag.Parse()
+	t.Log(*f)
 }
