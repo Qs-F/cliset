@@ -6,9 +6,9 @@ import (
 	"testing"
 )
 
-func TestWarn(t *testing.T) {
-	Warn("Error we cannot detect the form")
-}
+// func TestWarn(t *testing.T) {
+// 	Warn("Error we cannot detect the form")
+// }
 
 func TestIsPiped(t *testing.T) {
 	t.Log(IsPiped())

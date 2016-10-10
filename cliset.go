@@ -23,9 +23,9 @@ type OutMessage struct {
 	Body []string
 }
 
-func Warn(s string) {
-	log.Println(coloring.Red(s))
-}
+// func Warn(s string) {
+// 	log.Println(coloring.Red(s))
+// }
 
 func IsPiped() bool {
 	if terminal.IsTerminal(0) { // pipe value is empty
