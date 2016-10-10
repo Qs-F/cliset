@@ -10,7 +10,6 @@ import (
 	"os"
 	"sync"
 
-	"github.com/Qs-F/coloring"
 	"golang.org/x/crypto/ssh/terminal"
 )
 
